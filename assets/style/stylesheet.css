@@ -1,0 +1,22 @@
+.container-fluid {
+    text-align: center;
+    color: white;
+    background: rgb(2,0,36);
+    background: radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(71,38,182,1) 50%, rgba(0,212,255,1) 100%);
+    padding: 1rem;
+}
+
+.searchbar {
+    position:absolute;
+    left: 3%;
+}
+
+#searchcity {
+    font-weight: bolder;
+    font-size: 2rem;
+}
+
+.forecast {
+    text-align: center;
+    
+}
