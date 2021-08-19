@@ -16,20 +16,35 @@
     </div>
 
         <form>
-            <div class="form-group searchbar">
+            <div class="form-group col-sm-3">
               <label id="searchcity" for="formGroupExampleInput">Search for a City</label>
-              <input type="text" class="form-control" id="formGroupExampleInput" placeholder="City">
-              <button type="button" class="btn btn-block btn btn-success searchbtn">Search</button>
+              <input type="text" class="form-control mb-4 cityname" id="formGroupExampleInput" placeholder="City">
+              <button type="button" class="btn btn-block btn btn-success" id="searchbtn">Search</button>
             </div>
+        </form>
 
-        <div> </div>
-        <div class="col-12 col-md-9 p-3 text-dark forecast">
+    <div class="one-day-forecast"></div>
+
+        <div class="mt-5 col-md-9 p-3 text-dark forecast">
             <h2>5-Day Forecast:<span id="result-text"></span></h2>
             <div id="result-content"></div>
         </div>
 
-        
+    <div class="forecastcard"></div>
 
+    <div class="forecastcard"></div>
+
+    <div class="forecastcard"></div>
+
+    <div class="forecastcard"></div>
+
+    <div class="card m-4" style="width: 10rem;">
+        <img class="card-img-top" src="" alt="Card image cap">
+        <div class="card-body">
+            <p class="card-text"></p>
+            </div>
+        </div>  
+    </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
