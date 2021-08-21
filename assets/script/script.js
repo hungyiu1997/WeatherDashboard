@@ -47,8 +47,9 @@ function weatherAPI() {
         var date = data.forecast.forecastday[0].date;
         date.textContent = data.forecast.forecastday[0].date;
             //get icon
-        var weatherIcon = data.current.condition.icon;
-        weatherIcon.textContent = data.current.condition.icon;
+        var weatherIcon = document.createElement("img");
+            //use.src for images
+        weatherIcon.src = "https:" + data.current.condition.icon;
             //get temperature
         var weatherTemp = data.current.temp_f;
         weatherTemp.textContent = data.current.temp_f;
@@ -77,19 +78,19 @@ function displayForecast(data) {
   for (var i = 1; i < 5; i++) {
     //create variables for the date, icons, humidity, temp, and wind
     var forecastDate = data.forecast.forecastday[1].date;
-    forecastDate.textContent = data.forecastday[1].date;
+    forecastDate.textContent = data.forecast.forecastday[1].date;
 
-    var forecastIcon = data.forecast.forecastday[1].condition.icon;
-    forecastIcon.textContent = data.forecastday[1].condition.icon;
+    var forecastIcon = data.forecast.forecastday[i].condition.icon;
+    forecastIcon.textContent = data.forecast.forecastday[i].condition.icon;
 
-    var forecastHumid = data.forecast.forecastday[1].forecastday.avgtemp_f;
-    forecastHumid.textContent = data.forecast.forecastday[1].forecastday.avgtemp_f;
+    var forecastHumid = data.forecast.forecastday[i].forecastday.day.avgtemp_f;
+    forecastHumid.textContent = data.forecast.forecastday[i].forecastday.day.avgtemp_f;
 
-    var forecastTemp = data.forecast.forecastday[1].day.avghumidity;
-    forecastTemp.textContent = data.forecast.forecastday[1].day.avghumidity;
+    var forecastTemp = data.forecast.forecastday[i].day.avghumidity;
+    forecastTemp.textContent = data.forecast.forecastday[i].day.avghumidity;
 
-    var forecastWind = data.forecast.forecastday[1].day.maxwind_mph;
-    forecastWind.textContent = data.forecast.forecastday[1].day.maxwind_mph;
+    var forecastWind = data.forecast.forecastday[i].day.maxwind_mph;
+    forecastWind.textContent = data.forecast.forecastday[i].day.maxwind_mph;
 
     //create the cards for displaying forecast
     var forecastCard = document.createElement("div");
@@ -97,18 +98,20 @@ function displayForecast(data) {
     var forecastCardBody = document.createElement("div");
     forecastCardBody.setAttribute("class", "card", "m-4");
 
-    //create for loop to go through all 5 cards dynamically
+    var forecastLi = document.createElement("ul");
+    var weatherObj = document.createElement("li");
 
+    forecastLi.append(forecastCard);
+    weatherObj.append(forecastCard);
 
     //add the variables to an object
     var weatherObj = {
-      forecastDate: forecastDate,
-      forecastIcon: forecastIcon,
-      forecastHumid: forecastHumid,
-      forecastTemp: forecastTemp,
-      forecastWind: forecastWind,
+      date: forecastDate,
+      icon: forecastIcon,
+      humidity: forecastHumid,
+      temperature: forecastTemp,
+      windSpeed: forecastWind,
     };
   }
 }
-
-
+displayForecast();
