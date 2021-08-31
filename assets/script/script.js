@@ -4,10 +4,12 @@ var searchBtn = document.getElementById("searchbtn");
 
 searchBtn.addEventListener("click", weatherAPI);
 
+
 function weatherAPI() {
 
   var search = document.getElementById("formGroupExampleInput").value;
   console.log("SEARCH INPUT: ", search);
+  saveSearch(search);
 
   var apiUrl =
     "https://api.weatherapi.com/v1/forecast.json?key=4f08ab911fbb4ee7979182843211608&q=" +
@@ -67,29 +69,47 @@ function weatherAPI() {
         weatherCardBody.append(cityName, date, weatherIcon, weatherTemp, weatherWind, weatherHumid, weatherUv);
         weatherCard.append(weatherCardBody);
         oneDayForecast.append(weatherCard);
+
+        displayForecast(data);
     })
 };
 
 //to display forecast
     //create for loop to loop thru the data
 function displayForecast(data) {
-    var forecastCard = document.querySelector(".forecastcard");
+    // var forecastCard = document.querySelector(".forecastcard");
 
-  for (var i = 1; i < 5; i++) {
+    // //calling the api again so that it is not out of scope.
+    // var apiUrl =
+    // "https://api.weatherapi.com/v1/forecast.json?key=4f08ab911fbb4ee7979182843211608&q=" +
+    // search +
+    // "&days=5&aqi=no&alerts=no";
+
+    // //setting up function to fetch again
+    // fetch(apiUrl)
+    // .then(function (response) {
+    //   return response.json();
+    // })
+    // .then(function (data) {
+    //   console.log(data);
+
+// create HTML elements for the data to fit in
+  for (var i = 0; i < 3; i++) {
     //create variables for the date, icons, humidity, temp, and wind
-    var forecastDate = data.forecast.forecastday[1].date;
-    forecastDate.textContent = data.forecast.forecastday[1].date;
+    var forecastDate = document.createElement("p");
+    forecastDate.textContent = data.forecast.forecastday[i].date;
 
-    var forecastIcon = data.forecast.forecastday[i].condition.icon;
-    forecastIcon.textContent = data.forecast.forecastday[i].condition.icon;
+    var forecastIcon = document.createElement("img");
+    // forecastIcon.textContent = data.forecast.forecastday[i].condition.icon;
+    forecastIcon.setAttribute ("src", "https:"+ data.forecast.forecastday[i].day.condition.icon);
 
-    var forecastHumid = data.forecast.forecastday[i].forecastday.day.avgtemp_f;
-    forecastHumid.textContent = data.forecast.forecastday[i].forecastday.day.avgtemp_f;
+    var forecastHumid = document.createElement("p");
+    forecastHumid.textContent = data.forecast.forecastday[i].day.avgtemp_f;
 
-    var forecastTemp = data.forecast.forecastday[i].day.avghumidity;
+    var forecastTemp = document.createElement("p");
     forecastTemp.textContent = data.forecast.forecastday[i].day.avghumidity;
 
-    var forecastWind = data.forecast.forecastday[i].day.maxwind_mph;
+    var forecastWind = document.createElement("p");
     forecastWind.textContent = data.forecast.forecastday[i].day.maxwind_mph;
 
     //create the cards for displaying forecast
@@ -98,20 +118,39 @@ function displayForecast(data) {
     var forecastCardBody = document.createElement("div");
     forecastCardBody.setAttribute("class", "card", "m-4");
 
-    var forecastLi = document.createElement("ul");
-    var weatherObj = document.createElement("li");
+    //appending the elements to the card
+    forecastCardBody.append(forecastDate, forecastIcon, forecastHumid, forecastTemp, forecastWind);
+    forecastCard.append(forecastCardBody);
 
-    forecastLi.append(forecastCard);
-    weatherObj.append(forecastCard);
+    var fiveDayEl = document.getElementById("result-content");
+    fiveDayEl.append(forecastCard);
 
     //add the variables to an object
-    var weatherObj = {
-      date: forecastDate,
-      icon: forecastIcon,
-      humidity: forecastHumid,
-      temperature: forecastTemp,
-      windSpeed: forecastWind,
-    };
-  }
+    // var weatherObj = {
+    //   date: forecastDate,
+    //   icon: forecastIcon,
+    //   humidity: forecastHumid,
+    //   temperature: forecastTemp,
+    //   windSpeed: forecastWind,
+    // };
+    }
+// })
 }
-displayForecast();
+
+function saveSearch (search) {
+  localStorage.setItem("searchResults", search);
+}
+
+function displaySearch() {
+  var displayCardEl = document.getElementById("displayCard");
+  var search = localStorage.getItem("searchResults")
+//making an element under the search box and appending the results to it 
+  var searchEl = document.createElement("p");
+  searchEl.textContent = search;
+  searchEl.setAttribute("class", "card");
+
+  displayCardEl.append(searchEl);
+}
+
+saveSearch();
+displaySearch();
